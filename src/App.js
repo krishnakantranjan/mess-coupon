@@ -1,15 +1,36 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
+
+// Components
+import Header from "./components/Header";
+import Login from "./components/Login";
+import Footer from "./components/Footer";
 
 
 const AppLayout = () => {
-    return (
-        <div>
-            <h1>App Layout</h1>
-            <p>This is the main layout of the app.</p>
-        </div>
-    );
+  return (
+    <>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
+  );
 };
 
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Login />
+      },
+    ],
+  },
+  
+]);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+root.render(<RouterProvider router={appRouter} />);
